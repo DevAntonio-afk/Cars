@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Car Model</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .model-header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .model-header h2 {
+      color: #b00;
+      margin-bottom: 0.5rem;
+    }
+    .car-listing {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+    .car-card {
+      min-width: 250px;
+      max-width: 320px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Car Model Details</h1>
+  </header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="#">Contact</a>
+  </nav>
+  <div class="container">
+    <div class="model-header">
+      <h2 id="modelName"></h2>
+      <p id="modelDesc"></p>
+    </div>
+    <div class="car-listing" id="modelCars"></div>
+  </div>
+  <footer>
+    &copy; 2025 Car Showcase. All rights reserved.
+  </footer>
+  <script>
+    // Example data for demonstration
+    const modelData = {
+      // SUV
+      "Toyota Fortuner": [
+        { name: "Toyota Fortuner 4x2", img: "img/fortuner1.jpg", desc: "Diesel, Automatic, 7-Seater" },
+        { name: "Toyota Fortuner Legender", img: "img/fortuner2.jpg", desc: "Diesel, Automatic, Premium Trim" }
+      ],
+      "Ford Endeavour": [
+        { name: "Ford Endeavour Titanium", img: "img/endeavour1.jpg", desc: "Diesel, Automatic, 7-Seater" },
+        { name: "Ford Endeavour Sport", img: "img/endeavour2.jpg", desc: "Diesel, Automatic, Sporty Look" }
+      ],
+      "Mahindra XUV700": [
+        { name: "XUV700 AX7", img: "img/xuv7001.jpg", desc: "Petrol, Automatic, 7-Seater" },
+        { name: "XUV700 MX", img: "img/xuv7002.jpg", desc: "Diesel, Manual, 5-Seater" }
+      ],
+      "Hyundai Creta": [
+        { name: "Creta SX", img: "img/creta1.jpg", desc: "Petrol, Automatic, Sunroof" },
+        { name: "Creta EX", img: "img/creta2.jpg", desc: "Diesel, Manual, Value Edition" }
+      ],
+      // Sedan
+      "Honda City": [
+        { name: "Honda City ZX", img: "img/city1.jpg", desc: "Petrol, Automatic, Sunroof" },
+        { name: "Honda City V", img: "img/city2.jpg", desc: "Diesel, Manual, Spacious" }
+      ],
+      "Hyundai Verna": [
+        { name: "Verna SX", img: "img/verna1.jpg", desc: "Petrol, Automatic, Stylish" },
+        { name: "Verna S", img: "img/verna2.jpg", desc: "Diesel, Manual, Value Edition" }
+      ],
+      "Skoda Slavia": [
+        { name: "Slavia Style", img: "img/slavia1.jpg", desc: "Petrol, Automatic, Premium" },
+        { name: "Slavia Ambition", img: "img/slavia2.jpg", desc: "Petrol, Manual, Affordable" }
+      ],
+      "Maruti Ciaz": [
+        { name: "Ciaz Alpha", img: "img/ciaz1.jpg", desc: "Petrol, Automatic, Top Model" },
+        { name: "Ciaz Delta", img: "img/ciaz2.jpg", desc: "Petrol, Manual, Mid Variant" }
+      ],
+      // Coupe
+      "BMW 2 Series": [
+        { name: "BMW 220i", img: "img/bmw2series1.jpg", desc: "Petrol, Automatic, Sporty" },
+        { name: "BMW 220d", img: "img/bmw2series2.jpg", desc: "Diesel, Automatic, Efficient" }
+      ],
+      "Audi A5": [
+        { name: "Audi A5 Sportback", img: "img/audiA51.jpg", desc: "Petrol, Automatic, Luxury" },
+        { name: "Audi A5 Cabriolet", img: "img/audiA52.jpg", desc: "Petrol, Automatic, Convertible" }
+      ],
+      "Mercedes C-Class Coupe": [
+        { name: "C 300 Coupe", img: "img/mercedesc1.jpg", desc: "Petrol, Automatic, Premium" },
+        { name: "C 43 AMG Coupe", img: "img/mercedesc2.jpg", desc: "Petrol, Automatic, AMG Performance" }
+      ],
+      // Convertible
+      "Mini Cooper Convertible": [
+        { name: "Mini Cooper S Convertible", img: "img/minicooper1.jpg", desc: "Petrol, Automatic, Fun Drive" }
+      ],
+      "BMW Z4": [
+        { name: "BMW Z4 sDrive20i", img: "img/bmwz41.jpg", desc: "Petrol, Automatic, Roadster" },
+        { name: "BMW Z4 M40i", img: "img/bmwz42.jpg", desc: "Petrol, Automatic, High Performance" }
+      ],
+      "Mercedes E-Class Cabriolet": [
+        { name: "E 400 Cabriolet", img: "img/mercedese1.jpg", desc: "Petrol, Automatic, Luxury Convertible" }
+      ],
+      // Truck
+      "Ford F-150": [
+        { name: "F-150 XL", img: "img/f1501.jpg", desc: "Petrol, Automatic, Workhorse" },
+        { name: "F-150 Raptor", img: "img/f1502.jpg", desc: "Petrol, Automatic, Off-road" }
+      ],
+      "Toyota Hilux": [
+        { name: "Hilux Double Cab", img: "img/hilux1.jpg", desc: "Diesel, Manual, Utility" }
+      ],
+      "Isuzu D-Max": [
+        { name: "D-Max V-Cross", img: "img/dmax1.jpg", desc: "Diesel, Manual, Adventure" }
+      ],
+      // Electric
+      "Tesla Model 3": [
+        { name: "Model 3 Standard Range", img: "img/model3_1.jpg", desc: "Electric, RWD, 423km Range" },
+        { name: "Model 3 Performance", img: "img/model3_2.jpg", desc: "Electric, AWD, 567km Range" }
+      ],
+      "Tata Nexon EV": [
+        { name: "Nexon EV Prime", img: "img/nexonev1.jpg", desc: "Electric, 312km Range" },
+        { name: "Nexon EV Max", img: "img/nexonev2.jpg", desc: "Electric, 437km Range" }
+      ],
+      "Hyundai Kona Electric": [
+        { name: "Kona Premium", img: "img/kona1.jpg", desc: "Electric, 452km Range" }
+      ]
+    };
+
+    // Get model name from URL
+    const params = new URLSearchParams(window.location.search);
+    const model = params.get('model');
+    document.getElementById('modelName').textContent = model ? model : "Model Not Found";
+
+    // Show cars for this model
+    const cars = modelData[model];
+    const container = document.getElementById('modelCars');
+    if (cars) {
+      cars.forEach(car => {
+        const div = document.createElement('div');
+        div.className = "car-card";
+        div.innerHTML = `
+          <img src="${car.img}" alt="${car.name}" class="car-img">
+          <h3>${car.name}</h3>
+          <p>${car.desc}</p>
+        `;
+        container.appendChild(div);
+      });
+    } else {
+      container.innerHTML = "<p style='color:#fff;'>No cars found for this model.</p>";
+    }
+  </script>
+</body>
+</html>

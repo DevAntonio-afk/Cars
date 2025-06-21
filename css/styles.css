@@ -1,0 +1,167 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: #111;
+  color: #fff;
+}
+
+header {
+  background-color: #b00;
+  padding: 2rem 1rem 1rem 1rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #222;
+  padding: 0.75rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+nav a {
+  color: #fff;
+  margin: 0 1.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: color 0.2s;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+}
+
+nav a:hover {
+  color: #b00;
+  border-bottom: 2px solid #b00;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  flex: 1 0 auto;
+}
+
+section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 2rem;
+}
+
+.car-card {
+  background: #181818;
+  border: 1px solid #292929;
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.car-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  border-color: #b00;
+  box-shadow: 0 8px 32px rgba(176,0,0,0.15);
+}
+
+.car-card h3 {
+  margin-top: 0;
+  color: #b00;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.car-card p {
+  font-size: 1rem;
+  color: #ddd;
+  margin: 0;
+}
+
+.car-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+footer {
+  background: #000;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-size: 1rem;
+  color: #aaa;
+  margin-top: 2rem;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+  flex-shrink: 0;
+}
+
+.car-models {
+  margin-top: 1rem;
+  background: #222;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(176,0,0,0.08);
+  animation: expandFade 0.3s;
+}
+.car-models h4 {
+  margin: 0 0 0.5rem 0;
+  color: #b00;
+}
+.car-models ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+.car-models li {
+  color: #fff;
+  margin-bottom: 0.3rem;
+  font-size: 1rem;
+}
+@keyframes expandFade {
+  from { opacity: 0; transform: scaleY(0.95);}
+  to { opacity: 1; transform: scaleY(1);}
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+  nav a {
+    margin: 0 0.5rem;
+    font-size: 1rem;
+  }
+  .container {
+    padding: 1rem 0.5rem;
+  }
+  section {
+    gap: 1rem;
+  }
+  .car-card {
+    padding: 1rem;
+  }
+}
