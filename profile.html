@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Profile</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+    <header>
+      <div class="header-flex">
+        <h1 id="profile-welcome" style="font-size:2.8rem;">User Profile</h1>
+      </div>
+    </header>
+    <div class="container" style="max-width:1000px;">
+      <section>
+        <div id="profile-picture" style="display:flex;justify-content:center;margin-bottom:2.5rem;"></div>
+        <h2 style="text-align:center;margin-bottom:2rem;font-size:2rem;">Profile Details</h2>
+        <ul id="profile-details" style="list-style:none;padding:0;font-size:1.5rem;max-width:700px;margin:0 auto;"></ul>
+        <div style="text-align:center;margin-bottom:2.5rem;">
+          <button id="edit-profile-btn" style="background:#b00;color:#fff;padding:1rem 2.2rem;border:none;border-radius:12px;font-size:1.3rem;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(176,0,0,0.08);transition:background 0.2s;">Edit</button>
+        </div>
+        <form id="edit-profile-form" style="display:none;max-width:700px;margin:2rem auto 0 auto;padding:2.5rem;background:#222;border-radius:16px;box-shadow:0 4px 24px rgba(176,0,0,0.15);color:#fff;">
+          <h2 style="text-align:center;margin-bottom:1.5rem;font-size:2rem;">Edit Profile</h2>
+          <div style="display:flex;flex-direction:column;gap:1.5rem;">
+            <input type="text" name="name" placeholder="Name" required style="font-size:1.3rem;padding:1rem;">
+            <input type="text" name="username" placeholder="Username" required style="font-size:1.3rem;padding:1rem;">
+            <input type="tel" name="mobile" placeholder="Mobile Number" pattern="[0-9]{10}" required style="font-size:1.3rem;padding:1rem;">
+            <input type="email" name="email" placeholder="Email" required style="font-size:1.3rem;padding:1rem;">
+            <input type="text" name="address" placeholder="Address" required style="font-size:1.3rem;padding:1rem;">
+            <input type="url" name="profilePic" placeholder="Profile Picture URL (optional)" style="font-size:1.3rem;padding:1rem;">
+            <label style="font-size:1.2rem;">Or upload profile picture:
+              <input type="file" id="profilePicUpload" accept="image/*" style="font-size:1.1rem;margin-top:0.5rem;">
+            </label>
+            <img id="profilePicPreview" src="" alt="Preview" style="display:none;width:120px;height:120px;border-radius:50%;object-fit:cover;border:4px solid #b00;margin:0 auto;">
+            <button type="submit" style="background:#b00;color:#fff;padding:1rem;border:none;border-radius:12px;font-size:1.3rem;font-weight:700;cursor:pointer;">Save Changes</button>
+          </div>
+        </form>
+      </section>
+    </div>
+    <script>
+      // Get user details from localStorage
+      const details = JSON.parse(localStorage.getItem('userDetails'));
+      const ul = document.getElementById('profile-details');
+      const picDiv = document.getElementById('profile-picture');
+      // Profile picture size
+      let profilePic = details && details.profilePic ? details.profilePic : 'https://ui-avatars.com/api/?name=' + (details?.name || 'User');
+      if (picDiv) {
+        picDiv.innerHTML = `<img src="${profilePic}" alt="Profile Picture" style="width:180px;height:180px;border-radius:50%;object-fit:cover;border:6px solid #b00;box-shadow:0 4px 24px rgba(176,0,0,0.15);">`;
+      }
+      if (details && ul) {
+        ul.innerHTML = `
+          <li><strong>Name:</strong> ${details.name || ''}</li>
+          <li><strong>Username:</strong> ${details.username || ''}</li>
+          <li><strong>Mobile Number:</strong> ${details.mobile || ''}</li>
+          <li><strong>Email:</strong> ${details.email || ''}</li>
+          <li><strong>Address:</strong> ${details.address || ''}</li>
+        `;
+      } else {
+        ul.innerHTML = '<li>No user details found. Please sign up or log in.</li>';
+      }
+      // Set welcome message with user's name
+      const welcome = document.getElementById('profile-welcome');
+      if (details && details.name && welcome) {
+        welcome.textContent = `Welcome ${details.name}`;
+      }
+      // Edit profile logic
+      const editBtn = document.getElementById('edit-profile-btn');
+      const editForm = document.getElementById('edit-profile-form');
+      if (editBtn && editForm && details) {
+        editBtn.addEventListener('click', function() {
+          editForm.style.display = 'block';
+          // Fill form with current details
+          editForm.name.value = details.name || '';
+          editForm.username.value = details.username || '';
+          editForm.mobile.value = details.mobile || '';
+          editForm.email.value = details.email || '';
+          editForm.address.value = details.address || '';
+          editForm.profilePic.value = details.profilePic || '';
+          // If profilePic is base64, show preview
+          const preview = document.getElementById('profilePicPreview');
+          if (details.profilePic && details.profilePic.startsWith('data:image')) {
+            preview.src = details.profilePic;
+            preview.style.display = 'block';
+          } else {
+            preview.style.display = 'none';
+          }
+        });
+        // Handle image upload
+        const uploadInput = document.getElementById('profilePicUpload');
+        const preview = document.getElementById('profilePicPreview');
+        if (uploadInput && preview) {
+          uploadInput.addEventListener('change', function() {
+            const file = uploadInput.files[0];
+            if (file) {
+              const reader = new FileReader();
+              reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                editForm.profilePic.value = e.target.result;
+              };
+              reader.readAsDataURL(file);
+            }
+          });
+        }
+        editForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          // Save updated details
+          const updated = {
+            name: editForm.name.value,
+            username: editForm.username.value,
+            mobile: editForm.mobile.value,
+            email: editForm.email.value,
+            address: editForm.address.value,
+            profilePic: editForm.profilePic.value
+          };
+          localStorage.setItem('userDetails', JSON.stringify(updated));
+          location.reload();
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -5,20 +5,90 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SRV Motosports</title>
   <link rel="stylesheet" href="css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <video id="bg-video" autoplay loop muted playsinline>
+    <source src="img/bg-sportcar.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
   <header>
-    <h1>SRV Motosports</h1>
+    <div class="header-flex">
+      <h1>SRV Motosports</h1>
+      <span class="header-tagline">Most stylish website for stalking stylish cars</span>
+    </div>
   </header>
 
   <nav>
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="#">Contact</a>
+    <!-- Social Icons -->
+    <a href="https://www.instagram.com/shiva.jaiswal.0703/" target="_blank" title="Instagram" class="social-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="6" fill="#fff"/><path d="M12 7.5A4.5 4.5 0 1 0 12 16.5A4.5 4.5 0 1 0 12 7.5Z" stroke="#b00" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1" fill="#b00"/></svg>
+    </a>
+    <a href="https://facebook.com" target="_blank" title="Facebook" class="social-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="6" fill="#fff"/><path d="M15 8h-2a1 1 0 0 0-1 1v2h3l-.5 3H12v6H9v-6H7v-3h2V9a3 3 0 0 1 3-3h2v2z" fill="#b00"/></svg>
+    </a>
+    <a href="mailto:someone@gmail.com" target="_blank" title="Gmail" class="social-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="6" fill="#fff"/><path d="M4 8v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-8 5-8-5z" fill="#b00"/><path d="M20 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v2l8 5 8-5z" fill="#b00"/></svg>
+    </a>
+    <a href="https://youtube.com" target="_blank" title="YouTube" class="social-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="6" fill="#fff"/><path d="M10 9v6l5-3-5-3z" fill="#b00"/><rect x="4" y="7" width="16" height="10" rx="3" stroke="#b00" stroke-width="2"/></svg>
+    </a>
+    <a href="#" class="login-btn">Login</a>
+    <a href="#" class="user-icon" id="user-icon" style="display:none;position:relative;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="8" r="4" fill="#b00"/>
+        <rect x="4" y="16" width="16" height="4" rx="2" fill="#b00"/>
+      </svg>
+      <div class="user-dropdown" id="user-dropdown" style="display:none;">
+        <a href="#" id="profile-link">Profile</a>
+        <a href="#" id="companies-link">Companies</a>
+        <a href="#" id="signout-link">Sign Out</a>
+      </div>
+    </a>
   </nav>
 
   <div class="container">
     <section id="car-list"></section>
+  </div>
+
+  <div id="login-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="close-login">&times;</span>
+      <h2>Login or Signup</h2>
+      <form id="login-form">
+        <input type="text" placeholder="Username or Email" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+        <div class="modal-divider">or</div>
+        <button type="button" id="signup-btn">Signup</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="signup-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="close-signup">&times;</span>
+      <h2>Signup</h2>
+      <div class="signup-line">Welcome! Start your journey with stylish cars 🚗✨</div>
+      <form id="signup-form">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="tel" name="mobile" placeholder="Mobile Number" pattern="[0-9]{10}" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+        <div id="signup-error" style="color:#b00;display:none;margin-bottom:0.5rem;text-align:center;"></div>
+        <button type="submit">Create Account</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="popup-modal" class="modal">
+    <div class="modal-content" id="popup-message" style="text-align:center;"></div>
   </div>
 
   <footer>
